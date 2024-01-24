@@ -11,14 +11,13 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(uuid())
+  id           String   @id @default(uuid())
   name         String
-  email        String    @unique
+  email        String   @unique
   passwordHash String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  deletedAt    DateTime?
-  URL          URL[]     @relation("UserURLs")
+  createdAt    DateTime @default(now())
+
+  URLs URL[]
 
   @@map("users")
 }
@@ -30,10 +29,9 @@ model URL {
   fullUrl     String
   clicksCount Int       @default(0)
   createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
 
-  user User @relation("UserURLs", fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   @@map("urls")
 }

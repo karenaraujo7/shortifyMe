@@ -1,13 +1,37 @@
-# docker run --name api-shortifyMe-pg -e POSTGRESQL_USERNAME=docker -e POSTGRESQL_PASSWORD=docker -e POSTGRESQL_DATABASE=api_shortifyMe -p 5432:5432 bitnami/postgresql
+version: '3.8'
 
-version: '3'
-
-services:
-  api-shortifyMe-pg:
-    image: bitnami/postgresql
+services: 
+  postgresdb:
+    image: postgres
+    restart: on-failure
+    env_file: ./.env
+    environment:
+      - POSTGRES_USER=docker 
+      - POSTGRES_PASSWORD=docker 
+      - POSTGRES_DB=api_shortifyMe
     ports:
       - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  app:
+    depends_on:
+      - postgresdb
+    build: .
+    restart: on-failure
+    ports:
+      - "3333:3333" 
     environment:
-      - POSTGRESQL_USERNAME=docker 
-      - POSTGRESQL_PASSWORD=docker 
-      - POSTGRESQL_DATABASE=api_shortifyMe
+      - NODE_ENV=dev
+      - PORT=3333
+      - TOKEN_SIGN_SECRET=363p£/QMt4
+      - DATABASE_URL=postgresql://docker:docker@postgresdb:5432/api_shortifyMe?schema=public
+      - DB_HOST=postgresdb
+      - DB_USER=docker
+      - DB_PASSWORD=docker
+      - DB_NAME=api_shortifyMe
+      - DB_PORT=5432
+
+volumes:
+  postgres_data:
+    

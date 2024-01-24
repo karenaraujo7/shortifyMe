@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "start": "node build/server.js",
-    "build": "tsup src --out-dir build"
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "typings": "prisma generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcryptjs": "2.4.6",
+    "@types/crypto-js": "4.2.2",
     "@types/node": "20.11.5",
     "prisma": "5.8.1",
     "tsup": "8.0.1",
@@ -19,7 +22,11 @@
     "typescript": "5.3.3"
   },
   "dependencies": {
+    "@fastify/cookie": "9.3.1",
+    "@fastify/jwt": "8.0.0",
     "@prisma/client": "5.8.1",
+    "bcryptjs": "2.4.3",
+    "crypto-js": "4.2.0",
     "dotenv": "16.3.2",
     "fastify": "4.25.2",
     "zod": "3.22.4"
