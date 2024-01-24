@@ -1,5 +1,3 @@
-/** @format */
-
 import { FastifyInstance } from "fastify";
 import { register } from "./register";
 import { login } from "./login";

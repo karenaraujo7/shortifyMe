@@ -1,10 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-// import { compare } from "bcryptjs";
 import { z } from "zod";
-import { prisma } from "../../../lib/prisma";
-// import generateToken from "../../../config/jwt.config";
 import { makeAuthenticateUseCase } from "../../../use-case/make-authenticate-use";
-// import { sign } from "crypto";
 
 export async function login(request: FastifyRequest, reply: FastifyReply) {
   try {
